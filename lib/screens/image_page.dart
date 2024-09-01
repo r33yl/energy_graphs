@@ -10,6 +10,7 @@ import 'package:energy_graphs/widgets/slider_list_tile.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
@@ -138,42 +139,62 @@ class _ImagePageState extends State<ImagePage> {
                 padding: const EdgeInsets.only(top: 8.0, bottom: 2.0),
                 child: RepaintBoundary(
                   key: _globalKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ScheduleTable(
-                        tableData: tableData,
-                        textSize: textSize,
-                        textWeight: textWeight,
-                        verticalPadding: verticalPadding,
-                        horizontalPadding: horizontalPadding,
-                        timeColumnHorizontalPadding: timeColumnHorizontalPadding,
-                        borderWidth: borderWidth,
-                        evenColumnOpacity: evenColumnOpacity,
-                        backgroundColor: backgroundColor,
-                        enableColor: enableColor,
-                        disableColor: disableColor,
-                        unknownColor: unknownColor,
-                        borderColor: borderColor,
-                        textColor: textColor,
-                        includeHeadersRow: includeHeadersRow,
-                        includeTotalRow: includeTotalRow,
-                      ),
-                      if (showDate)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-                          child: Text(
-                            DateFormat("Дата: dd.MM.yyyy")
-                                .format(DateTime.now().add(Duration(days: dateDaysOffset))),
-                            style: TextStyle(
-                              fontSize: dateTextSize,
-                              color: dateTextColor,
-                              fontWeight: FontWeight.values[(dateTextWeight.toInt() - 1) % 8],
+                  child: Container(
+                    color: backgroundColor,
+                    child: Stack(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            ScheduleTable(
+                              tableData: tableData,
+                              textSize: textSize,
+                              textWeight: textWeight,
+                              verticalPadding: verticalPadding,
+                              horizontalPadding: horizontalPadding,
+                              timeColumnHorizontalPadding: timeColumnHorizontalPadding,
+                              borderWidth: borderWidth,
+                              evenColumnOpacity: evenColumnOpacity,
+                              backgroundColor: backgroundColor,
+                              enableColor: enableColor,
+                              disableColor: disableColor,
+                              unknownColor: unknownColor,
+                              borderColor: borderColor,
+                              textColor: textColor,
+                              includeHeadersRow: includeHeadersRow,
+                              includeTotalRow: includeTotalRow,
                             ),
-                            textAlign: TextAlign.end,
-                          ),
+                            if (showDate)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+                                child: Text(
+                                  DateFormat("Дата: dd.MM.yyyy")
+                                      .format(DateTime.now().add(Duration(days: dateDaysOffset))),
+                                  style: TextStyle(
+                                    fontSize: dateTextSize,
+                                    color: dateTextColor,
+                                    fontWeight: FontWeight.values[(dateTextWeight.toInt() - 1) % 8],
+                                  ),
+                                  // textAlign: TextAlign.end,
+                                ),
+                              ),
+                          ],
                         ),
-                    ],
+                        if (showDate)
+                          Positioned(
+                            bottom: 2.0,
+                            left: 8.0,
+                            child: Text(
+                              "@blackout_cherkasy",
+                              style: TextStyle(
+                                fontSize: dateTextSize,
+                                color: dateTextColor,
+                                fontWeight: FontWeight.values[(dateTextWeight.toInt() - 1) % 8],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),

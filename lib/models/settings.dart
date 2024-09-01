@@ -108,7 +108,7 @@ class Settings extends HiveObject {
       dateDaysOffset: 0,
       dateTextSize: 14.0,
       dateTextWeight: 6.0,
-      dateTextColor: const Color.fromARGB(255, 100, 200, 70).hex,
+      dateTextColor: const Color.fromARGB(255, 90, 190, 50).hex,
     );
   }
 }
